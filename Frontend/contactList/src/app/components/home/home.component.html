@@ -1,0 +1,112 @@
+<div class="container" style=" padding-bottom: 253px;">
+  <!-- Logout -->
+  <div class="d-flex flex-row-reverse">
+  <button (click)="logout()" type="submit" class="btn m-2 " style="background-color:rgb(112, 183, 185)">Logout</button>
+  </div>
+  <!-- Add Form -->
+  <div class="container justify-content-center " style="background-color: rgb(233, 229, 229);">
+    <form [formGroup]="formGroup" class="m-3" >
+
+      <div class="form-group" >
+          <label for="name">Contact Name:</label>
+          <input formControlName="name" type="text" class="form-control" id="name" placeholder="Enter Name">
+
+          <div *ngIf="formGroup.controls['name'].invalid && formGroup.controls['name'].dirty">
+              <small class="form-text text-danger" *ngIf="formGroup.controls['name'].hasError('required')">required Name!</small>
+              <small class="form-text text-danger" *ngIf="formGroup.controls['name'].hasError('minlength')">min length is 5</small>
+          </div>
+      </div>
+
+
+      <div class="form-group">
+          <label for="address">Address:</label>
+          <input formControlName="address" type="text" class="form-control" id="address" placeholder="Enter Address">
+
+          <div *ngIf="formGroup.controls['address'].invalid && formGroup.controls['address'].dirty">
+              <small class="form-text text-danger" *ngIf="formGroup.controls['address'].hasError('required')">required <Address>s</Address>!</small>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label for="phone">Phone:</label>
+          <input formControlName="phone" type="text" class="form-control" id="mobile" placeholder="Enter Phone">
+
+          <div *ngIf="formGroup.controls['phone'].invalid && formGroup.controls['phone'].dirty">
+              <small class="form-text text-danger" *ngIf="formGroup.controls['phone'].hasError('required')">required phone!</small>
+              <small class="form-text text-danger" *ngIf="formGroup.controls['phone'].hasError('minlength')">min length is 11 digits</small>
+          </div>
+      </div>
+
+      <div class="form-group">
+        <label for="notes">Notes:</label>
+        <input formControlName="notes" type="text" class="form-control" id="notes" placeholder="Enter Phone">
+
+        <div *ngIf="formGroup.controls['notes'].invalid && formGroup.controls['notes'].dirty">
+            <small class="form-text text-danger" *ngIf="formGroup.controls['notes'].hasError('required')">required Notes!</small>
+        </div>
+      </div>
+
+
+    
+      <button [disabled]="formGroup.invalid" (click)="addContact()" type="submit" class="btn btn-primary mb-2">Add Contact</button>
+    </form>
+  </div>
+  <!-- Search -->
+  <div class="border p-3 border shadow-sm  form-rounded">
+    <label>Search</label>
+    <input (keyup)="serachByName()" class="w-25 ml-2 form-control d-inline"
+           [(ngModel)]="search_name" type="text" name="name">
+  </div>
+
+  <!-- Grid -->
+    <div class="mx-5" style="padding-top: 30px;">
+      <h2 style="color: #404040;">Contacts List</h2>
+      <div class="card" >
+          
+          <table class="table table-striped" >
+              <thead>
+                <tr>
+                  <th>#</th>
+                  
+                  <th>Name</th>
+                  
+                  <th>Phone</th>
+                  <th>Address</th>
+                  <th>Notes</th>
+                  <th>Edit</th>
+                  <th>Remove</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let contact of currentPage; let currentIndex=index">
+                  <td>{{currentIndex+1}}</td>
+                  
+  
+                  <td>{{contact.name}}</td>
+  
+  
+                  <td>{{contact.phone}}</td>
+  
+                  <td>{{contact.address}}</td>
+  
+                  <td> {{contact.notes}} </td>
+  
+                  <td><button [routerLink]="['/update']" [queryParams]="{ID: contact._id}" routerLinkActive="router-link-active"  type="button" class="btn btn-warning">Edit</button></td>
+
+                  <td><button (click)="delete(contact._id,currentIndex)"  type="button" class="btn btn-danger">Remove</button></td>
+                </tr>
+                
+              </tbody>
+            </table>
+        </div>
+        <!-- Pagination -->
+        <div class="row d-flex justify-content-center">
+          <div class="d-flex" aria-label="..." *ngFor="let contact of filterArray;let currentIndex = index">
+              <ul class="pagination pagination-sm">
+                  <li class="page-item"><button (click)="pagination(currentIndex) " class="page-link pagi">{{currentIndex+1}}</button></li>
+              </ul>
+          </div>
+      </div>
+    </div>
+  </div>
+  

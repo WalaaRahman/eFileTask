@@ -1,0 +1,17 @@
+<div class="container justify-content-center" style="width: 650px;">
+        
+            <div class=" card d-flex justify-content-center shadow mt-5 p-4">
+                    <div class="form-group">
+                        <input type="text"  class="form-control" placeholder="Username" id="userName" #inputUserName>
+                       
+                    </div> <br>
+
+                    <div class="form-group">
+                        <input  type="password" class="form-control" placeholder="Password" id="pwd" #inputPassword>
+                        
+                    </div>
+
+                    <div class="text-center"><button  type="submit" (click)="login(inputUserName.value,inputPassword.value);inputUserName.value='';inputPassword.value=''" class="btn btn-outline-primary">Login</button></div><br>
+            </div>
+           
+</div>
